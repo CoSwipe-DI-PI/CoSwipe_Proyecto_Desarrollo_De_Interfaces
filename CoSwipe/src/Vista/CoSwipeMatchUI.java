@@ -7,13 +7,34 @@ import javax.swing.DefaultComboBoxModel;
  */
 
 /**
+ * Pantalla que se muestra cuando todos los participantes de la sala
+ * coinciden en la misma película («It's a match!»).
  *
- * @author DAM2
+ * <p>Es una ventana {@link javax.swing.JFrame} diseñada con el editor
+ * visual de NetBeans. Muestra:</p>
+ * <ul>
+ *   <li>La barra superior con el logo, los participantes y el selector de idioma.</li>
+ *   <li>La tarjeta con el título, el póster y los detalles de la película elegida.</li>
+ *   <li>La plataforma en la que está disponible.</li>
+ * </ul>
+ *
+ * <p>No contiene lógica de negocio. El controlador accede a sus
+ * componentes mediante los getters públicos.</p>
+ *
+ * @author Sergio Garcia
+ * @version 1.0
+ * @see javax.swing.JFrame
  */
 public class CoSwipeMatchUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CoSwipeMatchUI.class.getName());
-     public CoSwipeMatchUI() {
+    /**
+    * Crea la pantalla de match. Inicializa los componentes, ajusta el tamaño
+    * de la ventana y la centra en pantalla. Pone el cursor de mano en los
+    * botones de cerrar y rellena el selector de idioma con «EN» y «ES»
+    * si está vacío.
+    */
+    public CoSwipeMatchUI() {
         initComponents();
         // Añade estas dos líneas aquí:
         pack(); 
@@ -25,10 +46,20 @@ public class CoSwipeMatchUI extends javax.swing.JFrame {
             cmbIdioma.setModel(new DefaultComboBoxModel<>(new String[]{"EN", "ES"}));
         }
     }
+    /**
+    * Devuelve la etiqueta del logo de la barra superior.
+    *
+    * @return etiqueta del logo; el controlador le añade un oyente de ratón
+    *         para volver al inicio
+    */
      public javax.swing.JLabel getLblLogo() {
         return lblLogoTexto;
     }
-
+    /**
+    * Devuelve la etiqueta con la «✕» que cierra la pantalla.
+    *
+    * @return etiqueta de cierre de la barra superior
+    */
     public javax.swing.JLabel getLblCerrar() {
         return lblCerrar;
     }

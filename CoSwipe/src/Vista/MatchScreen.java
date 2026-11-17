@@ -6,31 +6,72 @@ package Vista;
  */
 
 /**
+ * Pantalla principal de votación de CoSwipe («What's the verdict?»).
  *
- * @author DAM2
+ * <p>Muestra la tarjeta de la película actual junto con los botones para
+ * pasar o dar «me gusta», el número de personas en la sala y el selector
+ * de idioma. Es una ventana {@link javax.swing.JFrame} diseñada con el
+ * editor visual de NetBeans. El controlador accede a sus botones
+ * mediante los getters públicos.</p>
+ *
+ * @author Sergio Garcia
+ * @version 1.0
+ * @see javax.swing.JFrame
  */
 public class MatchScreen extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MatchScreen.class.getName());
 
     /**
-     * Creates new form MatchScreen
-     */
+    * Crea la pantalla de votación e inicializa sus componentes.
+    */
     public MatchScreen() {
         initComponents();
     }
+    /**
+    * Devuelve el botón «me gusta» (corazón).
+    *
+    * @return botón de «me gusta»
+    */
     public javax.swing.JButton getBtnMeGusta() {
         return btnMeGusta;
     }
+    /**
+    * Actualiza el texto que indica cuántas personas hay en la sala.
+    *
+    * @param numeroPersonas número de participantes que se mostrará
+    */
     public void actualizarContadorParticipantes(int numeroPersonas) {
         lblEnLaSala.setText(numeroPersonas + " in the room");
     }
+    /**
+    * Devuelve el botón «×» que cierra la pantalla.
+    *
+    * @return botón de cerrar
+    */
     public javax.swing.JButton getBtnCerrar() { 
         return btnCerrar; 
     }
+    /**
+    * Devuelve la etiqueta del logo de la barra superior.
+    *
+    * @return etiqueta del logo, usada para volver al inicio
+    */
     public javax.swing.JLabel getLblLogo() { 
         return lblLogoTexto; 
     }
+        /**
+        * Muestra el título y el póster de una película en la tarjeta.
+        *
+        * <p>El póster se descarga de TMDB a partir de su ruta relativa y se
+        * escala al tamaño de la tarjeta. Si la ruta es {@code null} o está
+        * vacía, solo se cambia el título. Si la descarga falla, se escribe un
+        * mensaje en la consola y el póster anterior se mantiene.</p>
+        *
+        * @param titulo título de la película que se muestra
+        * @param rutaImagen ruta relativa del póster en TMDB (por ejemplo
+        *                   {@code "/abc123.jpg"}); puede ser {@code null}
+        */
         public void actualizarPelicula(String titulo, String rutaImagen) {
         lblPelicula.setText(titulo);
         
@@ -367,8 +408,11 @@ public class MatchScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
-     */
+    * Lanza la pantalla de votación de forma independiente, con el aspecto
+    * Nimbus. Sirve solo para probar la ventana por separado.
+    *
+    * @param args argumentos de línea de comandos (no se utilizan)
+    */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
