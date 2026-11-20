@@ -27,3 +27,12 @@ Las pruebas se realizan con **JUnit 5** sobre `ModeloApp.java` para comprobar el
 
 En `build.xml` click derecho, `Run Target`, seleccionar `qa-test`. Si no aparece `qa-test`: selecciona `Other Targets` y ahí tendrá que aparecer.
 
+## Cambios realizados
+
+Se han añadido los siguientes elementos para implementar las pruebas automatizadas con JUnit 5:
+
+| Archivo o carpeta | Cambio realizado |
+|---|---|
+| `build.xml` | Se ha añadido la tarea `qa-test` para compilar y ejecutar automáticamente las pruebas con Ant. |
+| `lib/test/` | Se ha incorporado la biblioteca `junit-platform-console-standalone-1.11.4.jar`. |
+| `test/modelo/ModeloAppTest.java` | Se ha creado una clase con 7 pruebas unitarias sobre `ModeloApp`. |
