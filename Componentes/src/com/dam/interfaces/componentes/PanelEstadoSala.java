@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 /**
  * Indicador visual del estado de conexión a la sala de CoSwipe.
  * <p>
- * Muestra "● Conectado" en verde o "● Desconectado" en rojo y notifica
+ * Muestra "🟢 Conectado" en verde o " 🔴 Desconectado" en rojo y notifica
  * cada cambio mediante la propiedad {@link #PROP_CONECTADO}.
  *
  * @author Sergio García de Baya
