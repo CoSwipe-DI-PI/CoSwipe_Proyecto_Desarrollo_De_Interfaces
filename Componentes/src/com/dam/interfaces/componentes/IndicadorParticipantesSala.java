@@ -1,71 +1,51 @@
 package com.dam.interfaces.componentes;
 
-import java.awt.BorderLayout;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 /**
  * Etiqueta que muestra cuántos participantes hay en la sala de CoSwipe.
- * <p>
- * Cada cambio del número se notifica con la propiedad
- * {@code numeroParticipantes} para que la vista o el controlador reaccionen.
  *
  * @author Sergio García de Baya
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  * @see IndicadorParticipantesSalaBeanInfo
  */
 public class IndicadorParticipantesSala extends JPanel {
 
+    private JLabel etiquetaParticipantes;
     private int numeroParticipantes;
-    private JLabel lblParticipantes;
-    private PropertyChangeSupport cambios;
 
     /**
      * Crea el indicador con 0 participantes.
      */
     public IndicadorParticipantesSala() {
-        cambios = new PropertyChangeSupport(this);
-        numeroParticipantes = 0;
-
-        setLayout(new BorderLayout());
-
-        lblParticipantes = new JLabel("Participantes: 0");
-        lblParticipantes.setHorizontalAlignment(SwingConstants.CENTER);
-
-        add(lblParticipantes, BorderLayout.CENTER);
+        this.numeroParticipantes = 0;
+        setLayout(new FlowLayout(FlowLayout.LEFT));
+        
+        etiquetaParticipantes = new JLabel("Participantes: 0");
+        add(etiquetaParticipantes);
     }
 
+     /**
+     * Devuelve el número de participantes actual.
+     *
+     * @return número de participantes en la sala
+     */
     public int getNumeroParticipantes() {
         return numeroParticipantes;
     }
 
-    public void setNumeroParticipantes(int numeroParticipantes) {
-        if (numeroParticipantes < 0) {
-            throw new IllegalArgumentException(
-                    "El número de participantes no puede ser negativo"
-            );
+    /**
+     * Cambia el número de participantes y actualiza el texto.
+     * Los valores negativos se ignoran.
+     *
+     * @param numero nuevo número de participantes (0 o más)
+     */
+    public void setNumeroParticipantes(int numero) {
+        if (numero >= 0) {
+            this.numeroParticipantes = numero;
+            etiquetaParticipantes.setText("Participantes: " + numero);
         }
-
-        int anterior = this.numeroParticipantes;
-        this.numeroParticipantes = numeroParticipantes;
-
-        lblParticipantes.setText("Participantes: " + numeroParticipantes);
-
-        cambios.firePropertyChange(
-                "numeroParticipantes",
-                anterior,
-                numeroParticipantes
-        );
-    }
-    /** {@inheritDoc} */
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        cambios.addPropertyChangeListener(listener);
-    }
-    /** {@inheritDoc} */
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        cambios.removePropertyChangeListener(listener);
     }
 }

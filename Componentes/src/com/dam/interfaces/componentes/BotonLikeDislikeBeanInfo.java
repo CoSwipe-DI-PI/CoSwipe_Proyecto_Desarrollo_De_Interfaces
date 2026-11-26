@@ -4,22 +4,27 @@ import java.beans.BeanDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.beans.SimpleBeanInfo;
-
-
 /**
- * Información de diseño (JavaBeans) del componente {@code BotonLikeDislike}.
- *
- * <p>Indica al editor visual de NetBeans qué propiedades, eventos y
- * icono muestra el componente en la paleta y en la ventana de
- * propiedades. Esta clase se genera con el editor de BeanInfo del IDE y
- * no debe modificarse manualmente.</p>
+ * Información de diseño (BeanInfo) del componente {@link BotonLikeDislike}.
+ * <p>
+ * Define el nombre y la descripción que muestra NetBeans en la paleta
+ * y expone solo la propiedad {@code voto} en la ventana de propiedades.
  *
  * @author Sergio García de Baya
- * @version 1.0
+ * @version 2.0
+ * @since 1.0
+ * @see BotonLikeDislike
  * @see java.beans.SimpleBeanInfo
  */
 public class BotonLikeDislikeBeanInfo extends SimpleBeanInfo {
 
+    /**
+    * Devuelve las propiedades que se muestran en la ventana Properties.
+    * Solo se expone {@code voto} ("Voto Actual"), editable y marcada como preferida.
+    *
+    * @return un array con el descriptor de {@code voto}, o las propiedades
+    *         por defecto si se produce un error de introspección
+    */
     @Override
     public BeanDescriptor getBeanDescriptor() {
         BeanDescriptor descriptor = new BeanDescriptor(BotonLikeDislike.class);
@@ -28,6 +33,13 @@ public class BotonLikeDislikeBeanInfo extends SimpleBeanInfo {
         return descriptor;
     }
 
+    /**
+    * Devuelve las propiedades que se muestran en la ventana Properties.
+    * Solo se expone {@code voto} ("Voto Actual"), editable y marcada como preferida.
+    *
+    * @return un array con el descriptor de {@code voto}, o las propiedades
+    *         por defecto si se produce un error de introspección
+    */
     @Override
     public PropertyDescriptor[] getPropertyDescriptors() {
         try {

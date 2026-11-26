@@ -1,145 +1,74 @@
 package com.dam.interfaces.componentes;
 
 import java.awt.Color;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.Serializable;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-
 /**
  * Campo de texto para introducir el PIN de 6 dígitos de una sala de CoSwipe.
  * <p>
- * Solo admite números y un máximo de 6 caracteres. El fondo se muestra
- * en rojo mientras el PIN está incompleto y en blanco cuando tiene 6 dígitos.
- * Cada cambio se notifica mediante la propiedad {@link #PROP_PIN_COMPLETO}.
+ * Solo admite números y un máximo de 6 caracteres. El fondo es blanco
+ * si está vacío o completo, y rojo mientras el PIN está a medias.
  *
  * @author Sergio García de Baya
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  * @see CampoPinBeanInfo
- * @see java.beans.PropertyChangeListener
  */
-public class CampoPin extends JPanel implements Serializable {
+public class CampoPin extends JPanel {
 
-    public static final String PROP_PIN_COMPLETO = "pinCompleto";
-    private PropertyChangeSupport support;
-    private JTextField txtPin;
-    private String pinCompleto;
-    private Color colorNormal = Color.WHITE;
-    private Color colorError = new Color(255, 204, 204); // Rojo clarito
+    private JTextField campoTexto;
 
     /**
-     * Crea el campo vacio , con el fondo de error y con dimension 150 x 30. 
+     * Crea el campo vacío y registra el control de teclas,
+     * que solo deja escribir dígitos hasta un máximo de 6.
      */
     public CampoPin() {
-        support = new PropertyChangeSupport(this);
-        this.pinCompleto = "";
-        inicializarInterfaz();
-        setPreferredSize(new java.awt.Dimension(150, 30));
-    }
-    
-     /**
-     * Crea el campo de texto, le aplica el filtro de solo números
-     * (máximo 6) y registra el oyente que valida el PIN en cada cambio.
-     */
-    private void inicializarInterfaz() {
-        txtPin = new JTextField(6); // 6 columnas visuales
-        txtPin.setHorizontalAlignment(JTextField.CENTER);
-        txtPin.setFont(new java.awt.Font("Monospaced", 1, 18));
-        this.add(txtPin);
+        campoTexto = new JTextField(6);
+        campoTexto.setHorizontalAlignment(JTextField.CENTER);
+        campoTexto.setBackground(Color.WHITE); // Al principio es blanco (vacío)
+        add(campoTexto);
 
-        // 1. Filtro para que SOLO se puedan escribir números y MÁXIMO 6
-        ((AbstractDocument) txtPin.getDocument()).setDocumentFilter(new DocumentFilter() {
+        campoTexto.addKeyListener(new KeyAdapter() {
             @Override
-            public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                if (string != null && string.matches("\\d+") && (fb.getDocument().getLength() + string.length()) <= 6) {
-                    super.insertString(fb, offset, string, attr);
+            public void keyTyped(KeyEvent e) {
+                char letra = e.getKeyChar();
+                if (!Character.isDigit(letra) || campoTexto.getText().length() >= 6) {
+                    e.consume();
                 }
             }
 
             @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                if (text != null && text.matches("\\d+") && (fb.getDocument().getLength() - length + text.length()) <= 6) {
-                    super.replace(fb, offset, length, text, attrs);
-                } else if (text != null && text.isEmpty()) {
-                    // Permitir borrar
-                    super.replace(fb, offset, length, text, attrs);
-                }
+            public void keyReleased(KeyEvent e) {
+                comprobarColor();
             }
         });
-
-        // 2. Listener para comprobar si tiene 6 dígitos y cambiar el color
-        txtPin.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
-                validar();
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-                validar();
-            }
-
-            public void changedUpdate(DocumentEvent e) {
-                validar();
-            }
-        });
-
-        // Ponemos el fondo rojo al empezar, porque está vacío (menos de 6)
-        txtPin.setBackground(colorError);
     }
-    
+
      /**
-     * Comprueba si el texto tiene 6 dígitos, actualiza el color de fondo
-     * y el valor de {@code pinCompleto}, y lanza el evento
-     * {@link #PROP_PIN_COMPLETO}.
+     * Cambia el color de fondo según cuántos dígitos se han escrito.
      */
-    private void validar() {
-        String texto = txtPin.getText().trim();
-        String old = this.pinCompleto;
-
-        if (texto.length() == 6) {
-            this.pinCompleto = texto;
-            txtPin.setBackground(colorNormal); // Se pone blanco si llega a 6
-        } else {
-            this.pinCompleto = "";
-            txtPin.setBackground(colorError);  // Se queda rojo si tiene menos
-        }
-
-        if (support != null) {
-            support.firePropertyChange(PROP_PIN_COMPLETO, old, this.pinCompleto);
+    private void comprobarColor() {
+        int longitud = campoTexto.getText().length();
+        
+        if (longitud == 0) {
+            campoTexto.setBackground(Color.WHITE); // Vacío = Blanco
+        } else if (longitud > 0 && longitud < 6) {
+            campoTexto.setBackground(new Color(255, 204, 204)); // 1,2,3,4,5 = Rojo
+        } else if (longitud == 6) {
+            campoTexto.setBackground(Color.WHITE); // 6 = Blanco
         }
     }
 
-    public JTextField getTxtPin() {
-        return txtPin;
+    public JTextField getCampoTexto() {
+        return campoTexto;
     }
 
     public String getPinCompleto() {
-        return pinCompleto;
-    }
-
-    /**
-     * {@inheritDoc}
-     * Se usa para escuchar los cambios de {@link #PROP_PIN_COMPLETO}.
-     */
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener l) {
-        if (support != null) {
-            support.addPropertyChangeListener(l);
+        if (campoTexto.getText().length() == 6) {
+            return campoTexto.getText();
         }
-    }
-
-     /** {@inheritDoc} */
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener l) {
-        if (support != null) {
-            support.removePropertyChangeListener(l);
-        }
+        return "";
     }
 }
