@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 /**
  * Indicador que muestra si la sala está conectada:
- * "● Conectado" en verde o "● Desconectado" en rojo.
+ * "🟢 Conectado" en verde o "🔴 Desconectado" en rojo.
  *
  * @author Sergio García de Baya
  * @version 2.0

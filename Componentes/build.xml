@@ -70,4 +70,10 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-post-jar">
+    <signjar jar="${dist.jar}"
+             keystore="C:/claves/coswipe.jks"
+             alias="coswipe"
+             storepass="123456"/>
+    </target>
 </project>
