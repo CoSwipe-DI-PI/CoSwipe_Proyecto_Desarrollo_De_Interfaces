@@ -2,6 +2,9 @@
 
 **CoSwipe** es una aplicación móvil multiplataforma diseñada para eliminar de raíz la parálisis de elección al decidir qué película ver, qué serie empezar o a qué videojuego jugar en grupo. 
 
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Java Swing](https://img.shields.io/badge/GUI-Java_Swing-007396?style=for-the-badge&logo=java&logoColor=white)
+
 A través de un sistema de votación en tiempo real intuitivo y basado en gestos (*swiping*), **CoSwipe** permite a parejas, compañeros de piso y comunidades de Discord alcanzar un consenso unánime en cuestión de segundos. Su gran valor diferencial radica en un acceso 100% libre de fricción: sin registros obligatorios, sin contraseñas y mediante un código PIN o QR de acceso instantáneo.
 
 ---
