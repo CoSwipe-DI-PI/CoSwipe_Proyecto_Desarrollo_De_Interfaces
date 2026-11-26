@@ -35,6 +35,9 @@ public class CampoPin extends JPanel implements Serializable {
     private Color colorNormal = Color.WHITE;
     private Color colorError = new Color(255, 204, 204); // Rojo clarito
 
+    /**
+     * Crea el campo vacio , con el fondo de error y con dimension 150 x 30. 
+     */
     public CampoPin() {
         support = new PropertyChangeSupport(this);
         this.pinCompleto = "";

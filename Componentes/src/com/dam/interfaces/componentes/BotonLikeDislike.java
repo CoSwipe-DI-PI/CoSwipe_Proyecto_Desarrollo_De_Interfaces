@@ -35,6 +35,9 @@ public class BotonLikeDislike extends JPanel implements Serializable {
     private JButton btnDislike;
     private String voto;
 
+    /**
+     * Crea el componente con el voto vacio y los dos botones
+     */
     public BotonLikeDislike() {
         // El support se inicializa siempre primero para evitar nulos
         support = new PropertyChangeSupport(this);

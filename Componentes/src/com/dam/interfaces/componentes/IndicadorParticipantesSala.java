@@ -23,6 +23,9 @@ public class IndicadorParticipantesSala extends JPanel {
     private JLabel lblParticipantes;
     private PropertyChangeSupport cambios;
 
+    /**
+     * Crea el indicador con 0 participantes.
+     */
     public IndicadorParticipantesSala() {
         cambios = new PropertyChangeSupport(this);
         numeroParticipantes = 0;
