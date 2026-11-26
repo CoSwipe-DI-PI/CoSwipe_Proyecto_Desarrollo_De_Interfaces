@@ -24,6 +24,9 @@ public class PanelEstadoSala extends JPanel implements Serializable {
     private JLabel lblEstado;
     private boolean conectado;
 
+    /**
+     * Crea el panel de la sala en estado desconectado 
+     */
     public PanelEstadoSala() {
         support = new PropertyChangeSupport(this);
         this.conectado = false;
