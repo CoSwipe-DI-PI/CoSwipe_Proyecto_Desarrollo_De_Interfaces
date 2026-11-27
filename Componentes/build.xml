@@ -74,6 +74,6 @@
     <signjar jar="${dist.jar}"
              keystore="C:/claves/coswipe.jks"
              alias="coswipe"
-             storepass="123456"/>
+             storepass="${firma.pass}"/>/>
     </target>
 </project>
